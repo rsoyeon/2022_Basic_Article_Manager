@@ -12,7 +12,6 @@ public class Main {
 		int lastArticleId = 0;
 
 		List<Article> articles = new ArrayList<>();
-		
 
 		while (true) {
 
@@ -42,17 +41,39 @@ public class Main {
 
 			} else if (cmd.equals("article list")) {
 				if (articles.size() == 0) {
-				System.out.println("게시물이 없습니다");
-				continue;
-			} 
-				System.out.println("번호  |   제목");
-				for (int i=articles.size() - 1; i >= 0;i--) {
+					System.out.println("게시물이 없습니다");
+					continue;
+				}
+				System.out.println("번호    |   제목");
+				for (int i = articles.size() - 1; i >= 0; i--) {
 					Article article = articles.get(i);
-					
-					System.out.printf("%d | %s\n",article.id,article.title);
+
+					System.out.printf("%d	|	%s\n", article.id, article.title);
 				}
+
+			} else if (cmd.startsWith("article detail ")) {
+
+				String[] cmdBits = cmd.split(" ");
+
+				int id = Integer.parseInt(cmdBits[2]); // "2" -> 2
+
+				boolean foundArticle = false;
+
+				for (int i = 0; i < articles.size(); i++) {
+					Article article = articles.get(i);
+
+					if (article.id == id) {
+						foundArticle = true;
+						System.out.println("이거 있던데?");
+					}
 				}
-				else {
+
+				if (foundArticle == false) {
+					System.out.printf("%d번 게시물은 없어\n", id);
+					continue;
+				}
+
+			} else {
 				System.out.println("존재하지 않는 명령어입니다");
 			}
 		}
@@ -73,7 +94,4 @@ class Article {
 		this.title = title;
 		this.body = body;
 	}
-	
-	
-	
 }
