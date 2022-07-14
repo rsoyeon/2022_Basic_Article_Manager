@@ -12,6 +12,7 @@ public class Main {
 		int lastArticleId = 0;
 
 		List<Article> articles = new ArrayList<>();
+		
 
 		while (true) {
 
@@ -35,12 +36,23 @@ public class Main {
 				String body = sc.nextLine();
 
 				Article article = new Article(id, title, body);
+				articles.add(article);
 
 				System.out.printf("%d번 글이 생성되었습니다\n", id);
 
 			} else if (cmd.equals("article list")) {
+				if (articles.size() == 0) {
 				System.out.println("게시물이 없습니다");
-			} else {
+				continue;
+			} 
+				System.out.println("번호  |   제목");
+				for (int i=articles.size() - 1; i >= 0;i--) {
+					Article article = articles.get(i);
+					
+					System.out.printf("%d | %s\n",article.id,article.title);
+				}
+				}
+				else {
 				System.out.println("존재하지 않는 명령어입니다");
 			}
 		}
@@ -61,4 +73,7 @@ class Article {
 		this.title = title;
 		this.body = body;
 	}
+	
+	
+	
 }
