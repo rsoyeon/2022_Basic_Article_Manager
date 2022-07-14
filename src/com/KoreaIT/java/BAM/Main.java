@@ -1,5 +1,6 @@
 package com.KoreaIT.java.BAM;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -10,6 +11,7 @@ public class Main {
 
 		Scanner sc = new Scanner(System.in);
 		int lastArticleId = 0;
+		LocalDateTime dateTime = LocalDateTime.now();
 
 		List<Article> articles = new ArrayList<>();
 
@@ -29,6 +31,10 @@ public class Main {
 			if (cmd.equals("article write")) {
 				int id = lastArticleId + 1;
 				lastArticleId = id;
+				System.out.printf("번호 : ");
+				
+				System.out.printf("날짜 : ");
+				
 				System.out.printf("제목 : ");
 				String title = sc.nextLine();
 				System.out.printf("내용 : ");
@@ -57,20 +63,28 @@ public class Main {
 
 				int id = Integer.parseInt(cmdBits[2]); // "2" -> 2
 
-				boolean foundArticle = false;
+				Article foundArticle = null;
 
 				for (int i = 0; i < articles.size(); i++) {
 					Article article = articles.get(i);
 
 					if (article.id == id) {
-						foundArticle = true;
-						System.out.println("이거 있던데?");
+						
+					    foundArticle = article;
+						break;
+					
 					}
 				}
 
-				if (foundArticle == false) {
+				if (foundArticle == null) {
 					System.out.printf("%d번 게시물은 없어\n", id);
 					continue;
+					
+				} else {
+					System.out.printf("번호:%d\n",foundArticle.id);
+					System.out.printf("날짜:2022-12-12 12:12:12\n");
+					System.out.printf("제목:%s\n",foundArticle.title);
+					System.out.printf("내용:%s\n",foundArticle.body);
 				}
 
 			} else {
